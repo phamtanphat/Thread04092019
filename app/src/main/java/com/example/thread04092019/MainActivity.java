@@ -22,8 +22,28 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }).start();
         // 2: Tao ra object ket thua runble
-        Luong1 luong1 = new Luong1();
-        luong1.run();
+//        Luong1 luong1 = new Luong1();
+//        luong1.run();
 
+        Thread a = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                handleThread(" A ");
+            }
+        });
+        Thread b = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                handleThread(" B ");
+            }
+        });
+
+        a.start();
+        b.start();
+    }
+    private synchronized void handleThread(String key){
+        for (int i = 0 ; i < 100 ; i++){
+            Log.d("BBB",key + i);
+        }
     }
 }
