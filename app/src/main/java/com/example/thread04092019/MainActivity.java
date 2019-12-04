@@ -9,12 +9,13 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    int inta = 0;
+    int intb = 0;
+    int intc = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         // 1 : Khoi tao ra thread
 //        new Thread(new Runnable() {
 //            @Override
@@ -25,32 +26,43 @@ public class MainActivity extends AppCompatActivity {
         // 2: Tao ra object ket thua runble
 //        Luong1 luong1 = new Luong1();
 //        luong1.run();
-
-        final Thread a = new Thread(new Runnable() {
+        Thread a = new Thread(new Runnable() {
             @Override
             public void run() {
-                handleThread(" A ");
+                for (int i = 0 ; i < 50 ; i++){
+                    inta = i;
+                    Log.d("BBB"," Gia tri cua A : " + inta + " - vi tri " + i);
+                }
             }
         });
         Thread b = new Thread(new Runnable() {
             @Override
             public void run() {
-                handleThread(" B ");
+                for (int i = 0 ; i < 50 ; i++){
+                    intb = i;
+                }
+            }
+        });
+        Thread c = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0 ; i < 50 ; i++){
+                    intc = inta + intb;
+                }
 
             }
         });
-        // 1 : random A
-        // 2 : random b
-        // 3 : random c
+
 
         a.start();
         b.start();
+        c.start();
 
     }
     // deadlock : 2 thang cung 1 cong viec ma khong dong bo thi se dan deadlock
-    private void handleThread(String key){
-        for (int i = 0 ; i < 1000 ; i++){
-            Log.d("BBB",key + i);
-        }
-    }
+//    private void handleThread(String key){
+//        for (int i = 0 ; i < 1000 ; i++){
+//            Log.d("BBB",key + i);
+//        }
+//    }
 }
